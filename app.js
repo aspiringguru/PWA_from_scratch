@@ -2,10 +2,16 @@
 console.log("apiKey:", apiKey)
 const main = document.querySelector('main');
 const sourceSelector = document.querySelector('#sources');
+//const defaultSource = 'the-washington-post';
+const defaultSource = 'reuters';
 
-window.addEventListener('load', e => {
+window.addEventListener('load', async e => {
     updateNews();
-    updateSources();
+    await updateSources();
+    sourceSelector.value = defaultSource;
+    sourceSelector.addEventListener('change', evt => {
+        updateNews(evt.target.value);
+    });
 });
 
 async function updateSources() {
@@ -16,8 +22,8 @@ async function updateSources() {
         .join('\n');
 }
 
-async function updateNews() {
-    const res = await fetch('https://newsapi.org/v1/articles?source=techcrunch&apiKey='.concat(apiKey))
+async function updateNews(source = defaultSource) {
+    const res = await fetch('https://newsapi.org/v1/articles?source='.concat(source, '&apiKey=', apiKey))
     const json = await res.json();
     main.innerHTML = json.articles.map(createArticle).join('\n');
 }
