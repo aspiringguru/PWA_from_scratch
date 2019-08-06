@@ -1,7 +1,9 @@
 const staticAssets = [
   './',
   './app.js',
-  './styles.css'
+  './styles.css',
+  './fallback.json',
+  './images/fetch-dog.jpg'
 ];
 
 self.addEventListener('install', async event => {
@@ -33,11 +35,17 @@ async function networkFirst(request) {
     try {
         const networkResponse = await fetch(request);
         dynamicCache.put(request, networkResponse.clone());
+        //need to clone as networkResponse must go to browser
         console.log("async function networkFirst returning networkResponse");
         return networkResponse;
     } catch (err) {
+        console.log("networkResponse failed, getting cached response.");
         const cachedResponse = await dynamicCache.match(request);
-        console.log("async function networkFirst returning cachedResponse");
-        return await cachedResponse;
+        if (cachedResponse){
+            console.log("returning cachedResponse");
+        } else {
+            console.log("cachedResponse is null, returning fallback.json");
+        }
+        return cachedResponse || await caches.match('./fallback.json');
     }
 }
