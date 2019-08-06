@@ -1,1 +1,37 @@
 https://www.youtube.com/watch?v=gcx-3qi7t7c&t=603s
+
+
+http-server .
+
+https://newsapi.org/
+
+install openssl in ubuntu on windows,
+need this to create .pem file to serve https
+need https to addres CORS issues (can't do cross site loading of json from http localhost)
+
+https://websiteforstudents.com/manually-install-the-latest-openssl-toolkit-on-ubuntu-16-04-18-04-lts/
+
+https://support.microfocus.com/kb/doc.php?id=7013103
+#after installing openssl, cd to project directory and execute this.
+
+openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+
+
+#this might be useful, missing github link for script to create certs.
+https://www.youtube.com/watch?v=8ptiZlO7ROs
+
+#quick simple https server setup
+https://timonweb.com/posts/running-expressjs-server-over-https/
+openssl req -nodes -new -x509 -keyout server.key -out server.cert
+
+npm install --save express
+npm install --save fs
+npm install --save https
+
+
+
+----------------------
+useful notes check firewalls
+netsh firewall show state
+netsh firewall show config
+----------------------
