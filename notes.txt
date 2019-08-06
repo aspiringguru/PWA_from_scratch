@@ -35,3 +35,11 @@ useful notes check firewalls
 netsh firewall show state
 netsh firewall show config
 ----------------------
+
+use this to create manifest.json
+app-manifest.firebaseapp.com
+
+in chrome dev tools
+    > application
+     > service workers
+      > select the 'update on reload' checkbox
