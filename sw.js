@@ -11,5 +11,13 @@ self.addEventListener('install', async event => {
 });
 
 self.addEventListener('fetch', event => {
-    console.log("service worker : self.addEventListener - fetch")
+    console.log("service worker : self.addEventListener - fetch");
+    const request = event.request;
+    event.respondWith(cacheFirst(request));
 });
+
+
+async function cacheFirst(request) {
+    const cachedResponse = await caches.match(request);
+    return cachedResponse || fetch(request);
+}
