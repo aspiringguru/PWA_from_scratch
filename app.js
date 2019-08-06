@@ -14,6 +14,16 @@ window.addEventListener('load', async e => {
     });
 });
 
+if ('serviceWorker' in navigator) {
+    try {
+        navigator.serviceWorker.register('sw.js');
+        //nb: must be in same dir as app.js
+        console.log("service worker registered.");
+    } catch (error) {
+        console.log("service worker registration failed.");
+    }
+}
+
 async function updateSources() {
     const res = await fetch('https://newsapi.org/v1/sources')
     const json = await res.json();
